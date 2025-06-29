@@ -13,7 +13,7 @@ A local RAG (Retrieval-Augmented Generation) chatbot built with Streamlit, using
 
 ## Quick Start
 
-### Option 1: Local Development
+### Local Development
 
 1. **Clone the repository**
    ```bash
@@ -39,37 +39,22 @@ A local RAG (Retrieval-Augmented Generation) chatbot built with Streamlit, using
 
 5. **Open browser**: Navigate to `http://localhost:8501`
 
-### Option 2: Docker Deployment
-
-#### Using Docker Compose (Recommended)
-```bash
-# Build and run
-docker-compose up --build
-
-# Run in background
-docker-compose up -d --build
-
-# Stop
-docker-compose down
-```
-
-#### Using Docker directly
-```bash
-# Build image
-docker build -t rag-streamlit .
-
-# Run container
-docker run -p 8501:8501 rag-streamlit
-
-# Run with volume for file persistence
-docker run -p 8501:8501 -v $(pwd)/uploads:/app/uploads rag-streamlit
-```
-
-### Option 3: Streamlit Cloud Deployment
+### Streamlit Cloud Deployment
 
 1. **Push to GitHub**
-2. **Connect to Streamlit Cloud**
-3. **Deploy automatically**
+   ```bash
+   git add .
+   git commit -m "Prepare for Streamlit Cloud deployment"
+   git push origin main
+   ```
+
+2. **Deploy on Streamlit Cloud**
+   - Go to [share.streamlit.io](https://share.streamlit.io)
+   - Sign in with GitHub
+   - Click "New app"
+   - Select your repository
+   - Set main file path to: `app.py`
+   - Click "Deploy"
 
 ## Usage
 
@@ -107,14 +92,6 @@ See `requirements.txt` for complete list:
 - transformers
 - torch
 
-## Container Specifications
-
-- **Base Image**: Python 3.11-slim
-- **Port**: 8501
-- **Health Check**: Streamlit health endpoint
-- **Volume Mounts**: Optional file persistence
-- **Environment**: Headless mode for container deployment
-
 ## Troubleshooting
 
 ### Common Issues
@@ -127,7 +104,7 @@ See `requirements.txt` for complete list:
 2. **Memory Issues**
    - Reduce chunk size in `utils.py`
    - Use smaller embedding models
-   - Increase container memory limits
+   - Increase Streamlit Cloud memory limits
 
 3. **File Upload Issues**
    - Check file permissions
@@ -136,7 +113,6 @@ See `requirements.txt` for complete list:
 
 ### Performance Optimization
 
-- Use GPU if available (modify Dockerfile)
 - Adjust chunk sizes based on document types
 - Implement caching for repeated queries
 - Use smaller models for faster inference
